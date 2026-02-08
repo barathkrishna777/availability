@@ -30,14 +30,14 @@ export default function ConfigPanel({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border border-gray-200 rounded-lg">
+    <div>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+        className="flex items-center gap-1.5 text-[14px] text-accent-indigo hover:underline transition-colors mx-auto"
       >
-        <span>Options</span>
+        <span>{open ? "Hide options" : "More options"}</span>
         <svg
-          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
+          className={`w-3 h-3 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -45,23 +45,23 @@ export default function ConfigPanel({
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={3}
             d="M19 9l-7 7-7-7"
           />
         </svg>
       </button>
 
       {open && (
-        <div className="px-4 pb-4 pt-1 space-y-5 border-t border-gray-200">
-          <div>
-            <p className="text-sm font-medium text-gray-700 mb-2">
+        <div className="mt-5 space-y-5">
+          <div className="space-y-2">
+            <p className="text-[12px] font-medium text-apple-gray-light uppercase tracking-wider">
               My working hours
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label
                   htmlFor="working-start"
-                  className="block text-sm text-gray-600 mb-1"
+                  className="block text-[13px] text-apple-gray-mid mb-1"
                 >
                   From
                 </label>
@@ -70,13 +70,13 @@ export default function ConfigPanel({
                   type="time"
                   value={workingHoursStart}
                   onChange={(e) => onWorkingHoursStartChange(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-apple-gray-border/60 bg-white/70 backdrop-blur-sm px-4 py-3 text-[15px] text-apple-gray-dark focus:outline-none focus:ring-2 focus:ring-apple-blue/20 focus:border-apple-blue transition-all duration-150"
                 />
               </div>
               <div className="flex-1">
                 <label
                   htmlFor="working-end"
-                  className="block text-sm text-gray-600 mb-1"
+                  className="block text-[13px] text-apple-gray-mid mb-1"
                 >
                   To
                 </label>
@@ -85,21 +85,21 @@ export default function ConfigPanel({
                   type="time"
                   value={workingHoursEnd}
                   onChange={(e) => onWorkingHoursEndChange(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-apple-gray-border/60 bg-white/70 backdrop-blur-sm px-4 py-3 text-[15px] text-apple-gray-dark focus:outline-none focus:ring-2 focus:ring-apple-blue/20 focus:border-apple-blue transition-all duration-150"
                 />
               </div>
             </div>
           </div>
 
-          <div>
-            <p className="text-sm font-medium text-gray-700 mb-2">
+          <div className="space-y-2">
+            <p className="text-[12px] font-medium text-apple-gray-light uppercase tracking-wider">
               Their meeting hours
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
               <div className="flex-1">
                 <label
                   htmlFor="meeting-start"
-                  className="block text-sm text-gray-600 mb-1"
+                  className="block text-[13px] text-apple-gray-mid mb-1"
                 >
                   From
                 </label>
@@ -108,13 +108,13 @@ export default function ConfigPanel({
                   type="time"
                   value={meetingHoursStart}
                   onChange={(e) => onMeetingHoursStartChange(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-apple-gray-border/60 bg-white/70 backdrop-blur-sm px-4 py-3 text-[15px] text-apple-gray-dark focus:outline-none focus:ring-2 focus:ring-apple-blue/20 focus:border-apple-blue transition-all duration-150"
                 />
               </div>
               <div className="flex-1">
                 <label
                   htmlFor="meeting-end"
-                  className="block text-sm text-gray-600 mb-1"
+                  className="block text-[13px] text-apple-gray-mid mb-1"
                 >
                   To
                 </label>
@@ -123,20 +123,22 @@ export default function ConfigPanel({
                   type="time"
                   value={meetingHoursEnd}
                   onChange={(e) => onMeetingHoursEndChange(e.target.value)}
-                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full rounded-xl border border-apple-gray-border/60 bg-white/70 backdrop-blur-sm px-4 py-3 text-[15px] text-apple-gray-dark focus:outline-none focus:ring-2 focus:ring-apple-blue/20 focus:border-apple-blue transition-all duration-150"
                 />
               </div>
             </div>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer">
+          <label className="flex items-center gap-3 cursor-pointer justify-center">
             <input
               type="checkbox"
               checked={includeWeekends}
               onChange={(e) => onIncludeWeekendsChange(e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="w-4 h-4 rounded text-apple-blue focus:ring-apple-blue/30 border-apple-gray-border"
             />
-            <span className="text-sm text-gray-600">Include weekends</span>
+            <span className="text-[15px] text-apple-gray-mid">
+              Include weekends
+            </span>
           </label>
         </div>
       )}

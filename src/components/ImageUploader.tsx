@@ -30,7 +30,6 @@ export default function ImageUploader({
         const reader = new FileReader();
         reader.onload = () => {
           const result = reader.result as string;
-          // Strip data URI prefix to get raw base64
           const base64 = result.split(",")[1];
           onChange([...images, base64]);
         };
@@ -63,13 +62,11 @@ export default function ImageUploader({
       if (e.target.files) {
         processFiles(e.target.files);
       }
-      // Reset so re-selecting the same file works
       e.target.value = "";
     },
     [processFiles]
   );
 
-  // Handle paste from clipboard (Ctrl+V / Cmd+V)
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
       const items = e.clipboardData?.items;
@@ -101,16 +98,16 @@ export default function ImageUploader({
   );
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       <div
         onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onClick={() => inputRef.current?.click()}
-        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+        className={`rounded-2xl border-2 border-dashed p-12 text-center cursor-pointer transition-all duration-200 ${
           dragOver
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 hover:border-gray-400 hover:bg-gray-50"
+            ? "border-accent-indigo/40 bg-accent-indigo/5"
+            : "border-apple-gray-border/60 bg-white/50 backdrop-blur-sm hover:border-apple-gray-light hover:bg-white/70"
         }`}
       >
         <input
@@ -121,9 +118,9 @@ export default function ImageUploader({
           onChange={handleFileInput}
           className="hidden"
         />
-        <div className="text-gray-500">
+        <div>
           <svg
-            className="mx-auto h-10 w-10 mb-3 text-gray-400"
+            className="mx-auto h-12 w-12 mb-5 text-apple-gray-light/60"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -131,37 +128,34 @@ export default function ImageUploader({
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={1.5}
+              strokeWidth={1.2}
               d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
-          <p className="text-sm font-medium">
-            Drop or paste calendar screenshots here, or click to browse
+          <p className="text-[19px] font-medium text-apple-gray-dark tracking-[-0.01em]">
+            Drop, paste, or click to upload
           </p>
-          <p className="text-xs mt-1 text-gray-400">
-            PNG, JPG, WebP up to 5MB each (max 10 images)
+          <p className="text-[14px] mt-2 text-apple-gray-light">
+            PNG, JPG, or WebP &middot; up to 5 MB &middot; max 10 images
           </p>
         </div>
       </div>
 
       {images.length > 0 && (
-        <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
           {images.map((base64, i) => (
-            <div key={i} className="relative group">
+            <div key={i} className="relative group aspect-[4/3]">
               <img
                 src={`data:image/png;base64,${base64}`}
                 alt={`Screenshot ${i + 1}`}
-                className="w-full h-24 object-cover rounded-lg border border-gray-200"
+                className="w-full h-full object-cover rounded-2xl"
               />
               <button
                 onClick={() => removeImage(i)}
-                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute top-2 right-2 bg-black/40 backdrop-blur-sm text-white rounded-full w-6 h-6 flex items-center justify-center text-[12px] opacity-0 group-hover:opacity-100 transition-all duration-200 hover:bg-apple-red"
               >
                 x
               </button>
-              <span className="absolute bottom-1 left-1 bg-black/60 text-white text-xs px-1.5 py-0.5 rounded">
-                {i + 1}
-              </span>
             </div>
           ))}
         </div>
