@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface ImageUploaderProps {
   images: string[];
@@ -69,6 +69,30 @@ export default function ImageUploader({
     [processFiles]
   );
 
+  // Handle paste from clipboard (Ctrl+V / Cmd+V)
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      const imageFiles: File[] = [];
+      for (const item of items) {
+        if (item.type.startsWith("image/")) {
+          const file = item.getAsFile();
+          if (file) imageFiles.push(file);
+        }
+      }
+
+      if (imageFiles.length > 0) {
+        e.preventDefault();
+        processFiles(imageFiles);
+      }
+    };
+
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+  }, [processFiles]);
+
   const removeImage = useCallback(
     (index: number) => {
       onChange(images.filter((_, i) => i !== index));
@@ -112,7 +136,7 @@ export default function ImageUploader({
             />
           </svg>
           <p className="text-sm font-medium">
-            Drop calendar screenshots here, or click to browse
+            Drop or paste calendar screenshots here, or click to browse
           </p>
           <p className="text-xs mt-1 text-gray-400">
             PNG, JPG, WebP up to 5MB each (max 10 images)

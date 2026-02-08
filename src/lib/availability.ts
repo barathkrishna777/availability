@@ -81,10 +81,12 @@ export function clampToMeetingHours(
 export function computeFreeSlots(
   events: CalendarEvent[],
   dateRange: { start: string; end: string },
-  includeWeekends: boolean
+  includeWeekends: boolean,
+  workingHoursStart?: string,
+  workingHoursEnd?: string
 ): FreeSlot[] {
-  const startMinutes = 0;
-  const endMinutes = 24 * 60;
+  const startMinutes = workingHoursStart ? timeToMinutes(workingHoursStart) : 0;
+  const endMinutes = workingHoursEnd ? timeToMinutes(workingHoursEnd) : 24 * 60;
   const dates = getDatesInRange(dateRange.start, dateRange.end);
 
   // Group events by date

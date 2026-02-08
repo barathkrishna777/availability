@@ -11,6 +11,8 @@ export default function Home() {
   const [images, setImages] = useState<string[]>([]);
   const [sourceTimezone, setSourceTimezone] = useState("America/New_York");
   const [targetTimezone, setTargetTimezone] = useState("America/New_York");
+  const [workingHoursStart, setWorkingHoursStart] = useState("09:00");
+  const [workingHoursEnd, setWorkingHoursEnd] = useState("18:00");
   const [meetingHoursStart, setMeetingHoursStart] = useState("09:00");
   const [meetingHoursEnd, setMeetingHoursEnd] = useState("18:00");
   const [includeWeekends, setIncludeWeekends] = useState(false);
@@ -47,6 +49,8 @@ export default function Home() {
           images,
           sourceTimezone,
           targetTimezone,
+          workingHoursStart,
+          workingHoursEnd,
           meetingHoursStart,
           meetingHoursEnd,
           includeWeekends,
@@ -96,9 +100,13 @@ export default function Home() {
         </section>
 
         <ConfigPanel
+          workingHoursStart={workingHoursStart}
+          workingHoursEnd={workingHoursEnd}
           meetingHoursStart={meetingHoursStart}
           meetingHoursEnd={meetingHoursEnd}
           includeWeekends={includeWeekends}
+          onWorkingHoursStartChange={setWorkingHoursStart}
+          onWorkingHoursEndChange={setWorkingHoursEnd}
           onMeetingHoursStartChange={setMeetingHoursStart}
           onMeetingHoursEndChange={setMeetingHoursEnd}
           onIncludeWeekendsChange={setIncludeWeekends}

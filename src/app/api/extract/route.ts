@@ -56,11 +56,13 @@ export async function POST(request: Request) {
     // Extract events from images
     const extraction = await extractEvents(body.images);
 
-    // Compute free slots (full day range in source timezone)
+    // Compute free slots (clamped to working hours in source timezone)
     const freeSlots = computeFreeSlots(
       extraction.events,
       extraction.dateRange,
-      body.includeWeekends ?? false
+      body.includeWeekends ?? false,
+      body.workingHoursStart || "09:00",
+      body.workingHoursEnd || "18:00"
     );
 
     // Convert timezones

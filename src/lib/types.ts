@@ -24,8 +24,10 @@ export interface ExtractRequest {
   images: string[]; // base64 encoded
   sourceTimezone: string; // IANA timezone
   targetTimezone: string; // IANA timezone
-  meetingHoursStart: string; // HH:mm (24h)
-  meetingHoursEnd: string; // HH:mm (24h)
+  workingHoursStart: string; // HH:mm (24h) — in source timezone
+  workingHoursEnd: string; // HH:mm (24h) — in source timezone
+  meetingHoursStart: string; // HH:mm (24h) — in target timezone
+  meetingHoursEnd: string; // HH:mm (24h) — in target timezone
   includeWeekends: boolean;
 }
 

@@ -3,18 +3,26 @@
 import { useState } from "react";
 
 interface ConfigPanelProps {
+  workingHoursStart: string;
+  workingHoursEnd: string;
   meetingHoursStart: string;
   meetingHoursEnd: string;
   includeWeekends: boolean;
+  onWorkingHoursStartChange: (value: string) => void;
+  onWorkingHoursEndChange: (value: string) => void;
   onMeetingHoursStartChange: (value: string) => void;
   onMeetingHoursEndChange: (value: string) => void;
   onIncludeWeekendsChange: (value: boolean) => void;
 }
 
 export default function ConfigPanel({
+  workingHoursStart,
+  workingHoursEnd,
   meetingHoursStart,
   meetingHoursEnd,
   includeWeekends,
+  onWorkingHoursStartChange,
+  onWorkingHoursEndChange,
   onMeetingHoursStartChange,
   onMeetingHoursEndChange,
   onIncludeWeekendsChange,
@@ -44,37 +52,80 @@ export default function ConfigPanel({
       </button>
 
       {open && (
-        <div className="px-4 pb-4 pt-1 space-y-4 border-t border-gray-200">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1">
-              <label
-                htmlFor="meeting-start"
-                className="block text-sm text-gray-600 mb-1"
-              >
-                Meeting hours start
-              </label>
-              <input
-                id="meeting-start"
-                type="time"
-                value={meetingHoursStart}
-                onChange={(e) => onMeetingHoursStartChange(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
+        <div className="px-4 pb-4 pt-1 space-y-5 border-t border-gray-200">
+          <div>
+            <p className="text-sm font-medium text-gray-700 mb-2">
+              My working hours
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1">
+                <label
+                  htmlFor="working-start"
+                  className="block text-sm text-gray-600 mb-1"
+                >
+                  From
+                </label>
+                <input
+                  id="working-start"
+                  type="time"
+                  value={workingHoursStart}
+                  onChange={(e) => onWorkingHoursStartChange(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div className="flex-1">
+                <label
+                  htmlFor="working-end"
+                  className="block text-sm text-gray-600 mb-1"
+                >
+                  To
+                </label>
+                <input
+                  id="working-end"
+                  type="time"
+                  value={workingHoursEnd}
+                  onChange={(e) => onWorkingHoursEndChange(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
-            <div className="flex-1">
-              <label
-                htmlFor="meeting-end"
-                className="block text-sm text-gray-600 mb-1"
-              >
-                Meeting hours end
-              </label>
-              <input
-                id="meeting-end"
-                type="time"
-                value={meetingHoursEnd}
-                onChange={(e) => onMeetingHoursEndChange(e.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
+          </div>
+
+          <div>
+            <p className="text-sm font-medium text-gray-700 mb-2">
+              Their meeting hours
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex-1">
+                <label
+                  htmlFor="meeting-start"
+                  className="block text-sm text-gray-600 mb-1"
+                >
+                  From
+                </label>
+                <input
+                  id="meeting-start"
+                  type="time"
+                  value={meetingHoursStart}
+                  onChange={(e) => onMeetingHoursStartChange(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+              <div className="flex-1">
+                <label
+                  htmlFor="meeting-end"
+                  className="block text-sm text-gray-600 mb-1"
+                >
+                  To
+                </label>
+                <input
+                  id="meeting-end"
+                  type="time"
+                  value={meetingHoursEnd}
+                  onChange={(e) => onMeetingHoursEndChange(e.target.value)}
+                  className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
           </div>
 
