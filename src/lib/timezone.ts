@@ -50,7 +50,7 @@ function parseDateTime(date: string, time: string, timezone: string): Date {
   }
 
   // Adjust the guess
-  return new Date(guess.getTime() - diffMinutes * 60 * 1000);
+  return new Date(guess.getTime() + diffMinutes * 60 * 1000);
 }
 
 function formatTimeInTimezone(date: Date, timezone: string): { date: string; time: string } {
